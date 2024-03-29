@@ -24,20 +24,9 @@ namespace HomeWork5
         /// <returns></returns>
         public static string FindSentencesWithoutCommas(string text)
         {
-            StringBuilder sb = new StringBuilder();
-            string[] arrayStrings1 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\?");
-            string[] arrayStrings2 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\!");
-            string[] arrayStrings3 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\.");
-
-            List<string> list = new List<string>();
-            foreach (string s in arrayStrings1)
-                list.Add(s);
-            foreach (string s in arrayStrings2)
-                list.Add(s);
-            foreach (string s in arrayStrings3)
-                list.Add(s);
-
-            foreach (string str in list)
+            StringBuilder sb = new StringBuilder(); 
+            string[] arrayStrings = FindRegularExpressions(text, @"[А-ЯЁ][\S\s]+?(?:[\S][^А-ЯЁ\.]){1,}(?:\.+|[?!])(?!(\s*[а-яё)\-""«0-9\.]))");
+            foreach (string str in arrayStrings)
             {
                 if(!str.Contains(','))
                     sb.Append(str.Trim() + "\n");
@@ -121,7 +110,7 @@ namespace HomeWork5
             var arrayString = ArrayString(text);
             foreach ( var item in arrayString )
             {
-                if (item[0] == item[item.Length - 1] && !Char.IsDigit(item[0]))
+                if (item[0].ToString().ToLower() == item[item.Length - 1].ToString().ToLower() && !Char.IsDigit(item[0]))
                     sb.Append(item + "\n");
             }
             return $"Слова которые начинаются и заканчиваются одинаковой буквой:\n{sb.ToString()}";
