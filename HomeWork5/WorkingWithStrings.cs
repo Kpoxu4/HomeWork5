@@ -5,6 +5,7 @@ using System.Data;
 using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
+using System.Security;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -16,15 +17,32 @@ namespace HomeWork5
     /// </summary>
     public static class WorkingWithStrings
     {
+        /// <summary>
+        /// Вывод предложений без запятых.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string FindSentencesWithoutCommas(string text)
         {
-            var matches1 = Regex.Matches(text, @"[\w\,\s]*\?\s");
-            var matches2 = Regex.Matches(text, @"[\w\,\s]*\!\s");
-            var matches3 = Regex.Matches(text, @"[\w\,\s]*\.\s");
-            string[] arrayStrings1 = matches1.Cast<Match>().Select(m => m.Value).ToArray();
-            string[] arrayStrings2 = matches2.Cast<Match>().Select(m => m.Value).ToArray();
-            string[] arrayStrings3 = matches3.Cast<Match>().Select(m => m.Value).ToArray();
-            return $"\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}\n{String.Join('\n', arrayStrings3)}";
+            StringBuilder sb = new StringBuilder();
+            string[] arrayStrings1 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\?");
+            string[] arrayStrings2 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\!");
+            string[] arrayStrings3 = FindRegularExpressions(text, @"[\w\,\.\d\s]*\.");
+
+            List<string> list = new List<string>();
+            foreach (string s in arrayStrings1)
+                list.Add(s);
+            foreach (string s in arrayStrings2)
+                list.Add(s);
+            foreach (string s in arrayStrings3)
+                list.Add(s);
+
+            foreach (string str in list)
+            {
+                if(!str.Contains(','))
+                    sb.Append(str.Trim() + "\n");
+            }
+            return sb.ToString();
         }
         /// <summary>
         /// Поиск вопросительных  а затем восклицательных предложений
@@ -206,6 +224,17 @@ namespace HomeWork5
                 default:
                     return "";
             }   
+        }
+        /// <summary>
+        /// Поиск регулярных выражений
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="regular"></param>
+        /// <returns></returns>
+        private static string[] FindRegularExpressions(string text, string regular)
+        {
+            var matches = Regex.Matches(text, regular);
+            return matches.Cast<Match>().Select(m => m.Value).ToArray();
         }
     }
 }

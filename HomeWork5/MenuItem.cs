@@ -31,7 +31,6 @@ namespace HomeWork5
                 case "4":
                     return WorkingWithStrings.SearchForInterrogativeSentences(text);
                 case "5":
-                    //TODO ДЕлаем метод с запятыми
                     return WorkingWithStrings.FindSentencesWithoutCommas(text);
                 case "6":
                     return WorkingWithStrings.FindWordsThatStartAndEndEqual(text);

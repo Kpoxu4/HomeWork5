@@ -19,7 +19,6 @@ namespace HomeWork5
             ".", ",", ";", "...", ":", "?", "!", "-", "[", "]", "(", ")", "<", ">",
             "\'", "\"", " "
         };
-        //public readonly string[] arrayOfLineEndings = new string[] { "?", "!", "." };
 
     }
 }
