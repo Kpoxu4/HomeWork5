@@ -16,6 +16,16 @@ namespace HomeWork5
     /// </summary>
     public static class WorkingWithStrings
     {
+        public static string FindSentencesWithoutCommas(string text)
+        {
+            var matches1 = Regex.Matches(text, @"[\w\,\s]*\?\s");
+            var matches2 = Regex.Matches(text, @"[\w\,\s]*\!\s");
+            var matches3 = Regex.Matches(text, @"[\w\,\s]*\.\s");
+            string[] arrayStrings1 = matches1.Cast<Match>().Select(m => m.Value).ToArray();
+            string[] arrayStrings2 = matches2.Cast<Match>().Select(m => m.Value).ToArray();
+            string[] arrayStrings3 = matches3.Cast<Match>().Select(m => m.Value).ToArray();
+            return $"\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}\n{String.Join('\n', arrayStrings3)}";
+        }
         /// <summary>
         /// Поиск вопросительных  а затем восклицательных предложений
         /// </summary>
@@ -29,12 +39,12 @@ namespace HomeWork5
 
             return $"Количество предложений {count}:\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}";
         }
-    /// <summary>
+        /// <summary>
     /// Замена всех цифр на слова.
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-    public static string ReplacingNumberWithWord(string text)
+        public static string ReplacingNumberWithWord(string text)
         {
             foreach (char item in text)
             {
