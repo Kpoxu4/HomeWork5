@@ -24,13 +24,25 @@ namespace HomeWork5
         /// <returns></returns>
         public static string FindSentencesWithoutCommas(string text)
         {
-            StringBuilder sb = new StringBuilder(); 
-            string[] arrayStrings = FindRegularExpressions(text, @"[А-ЯЁ][\S\s]+?(?:[\S][^А-ЯЁ\.]){1,}(?:\.+|[?!])(?!(\s*[а-яё)\-""«0-9\.]))");
-            foreach (string str in arrayStrings)
+            text = text.Trim().TrimEnd();
+            PunctuationMarks punctuationMark = new PunctuationMarks();
+            var punctuation = punctuationMark.arrayFinishPunctuationMarks;
+            List<string> sentences = new List<string>();
+            StringBuilder sb = new StringBuilder();
+            
+            for (int i = 0; i < text.Length; i++)
             {
-                if(!str.Contains(','))
-                    sb.Append(str.Trim() + "\n");
+                sentences.Add(text.Substring(0, text.IndexOfAny(punctuation) + 1) + "\n");
+                text = text.Remove(0, text.IndexOfAny(punctuation) + 1).Trim();
             }
+            sentences.Add(text);
+
+            foreach (var str in sentences)
+            {
+                if(!str.Contains(","))
+                    sb.Append(str.Trim() + "\n"); 
+            }
+
             return sb.ToString();
         }
         /// <summary>
@@ -40,8 +52,8 @@ namespace HomeWork5
         {
             var matches1 = Regex.Matches(text, @"[\w\,\s]*\?");
             var matches2 = Regex.Matches(text, @"[\w\,\s]*\!");
-            string[] arrayStrings1 = matches1.Cast<Match>().Select(m => m.Value).ToArray();
-            string[] arrayStrings2 = matches2.Cast<Match>().Select(m => m.Value).ToArray();
+            string[] arrayStrings1 = matches1.Cast<Match>().Select(m => m.Value.Trim()).ToArray();
+            string[] arrayStrings2 = matches2.Cast<Match>().Select(m => m.Value.Trim()).ToArray();
             int count = arrayStrings1.Length + arrayStrings2.Length;
 
             return $"Количество предложений {count}:\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}";

@@ -19,6 +19,10 @@ namespace HomeWork5
             ".", ",", ";", "...", ":", "?", "!", "-", "[", "]", "(", ")", "<", ">",
             "\'", "\"", " "
         };
+        public readonly char[] arrayFinishPunctuationMarks = new char[]
+        {
+            '.', '!', '?',
+        };
 
     }
 }
