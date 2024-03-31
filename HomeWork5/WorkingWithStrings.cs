@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Data;
+using System.Formats.Tar;
 using System.Globalization;
 using System.Linq;
 using System.Reflection.Metadata.Ecma335;
@@ -22,7 +23,7 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string FindSentencesWithoutCommas(string text)
+        public static string FindSentencesWithoutCommas( this string text)
         {
             text = text.Trim().TrimEnd();
             PunctuationMarks punctuationMark = new PunctuationMarks();
@@ -32,8 +33,13 @@ namespace HomeWork5
             
             for (int i = 0; i < text.Length; i++)
             {
-                sentences.Add(text.Substring(0, text.IndexOfAny(punctuation) + 1) + "\n");
-                text = text.Remove(0, text.IndexOfAny(punctuation) + 1).Trim();
+                if (text.IndexOfAny(punctuation) != text.Length - 1)
+                {
+                  sentences.Add(text.Substring(0, text.IndexOfAny(punctuation) + 1) + "\n");
+                  text = text.Remove(0, text.IndexOfAny(punctuation) + 1).Trim();
+                }
+                else
+                    break;
             }
             sentences.Add(text);
 
@@ -48,7 +54,7 @@ namespace HomeWork5
         /// <summary>
         /// Поиск вопросительных  а затем восклицательных предложений
         /// </summary>
-        public static string SearchForInterrogativeSentences(string text)
+        public static string SearchForInterrogativeSentences(this string text)
         {
             var matches1 = Regex.Matches(text, @"[\w\,\s]*\?");
             var matches2 = Regex.Matches(text, @"[\w\,\s]*\!");
@@ -63,7 +69,7 @@ namespace HomeWork5
     /// </summary>
     /// <param name="text"></param>
     /// <returns></returns>
-        public static string ReplacingNumberWithWord(string text)
+        public static string ReplacingNumberWithWord(this string text)
         {
             foreach (char item in text)
             {
@@ -80,7 +86,7 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string FindWordsThatMaxQuantityNumbers(string text)
+        public static string FindWordsThatMaxQuantityNumbers(this string text)
         {
             string[] strings = WordsWithNumber(text).Split(" ").Where(x => x != null && x != "").ToArray();
             int count = 0;
@@ -116,7 +122,7 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string FindWordsThatStartAndEndEqual(string text)
+        public static string FindWordsThatStartAndEndEqual(this string text)
         {
             StringBuilder sb = new StringBuilder();
             var arrayString = ArrayString(text);
@@ -132,7 +138,7 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string FindQuantityLongsWord(string text)
+        public static string FindQuantityLongsWord(this string text)
         {
             var arrayString = ArrayString(text);
             int count = arrayString.Where(x => x == FindTheLongsWord(text)).Count();

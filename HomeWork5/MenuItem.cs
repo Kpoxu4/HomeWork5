@@ -23,17 +23,17 @@ namespace HomeWork5
             switch (item)
             {
                 case "1":
-                    return WorkingWithStrings.FindWordsThatMaxQuantityNumbers(text);
+                    return text.FindWordsThatMaxQuantityNumbers();
                 case "2":
-                    return WorkingWithStrings.FindQuantityLongsWord(text);
+                    return text.FindQuantityLongsWord();
                 case "3":
-                    return WorkingWithStrings.ReplacingNumberWithWord(text);
+                    return text.ReplacingNumberWithWord();
                 case "4":
-                    return WorkingWithStrings.SearchForInterrogativeSentences(text);
+                    return text.SearchForInterrogativeSentences();
                 case "5":
-                    return WorkingWithStrings.FindSentencesWithoutCommas(text);
+                    return text.FindSentencesWithoutCommas();
                 case "6":
-                    return WorkingWithStrings.FindWordsThatStartAndEndEqual(text);
+                    return text.FindWordsThatStartAndEndEqual();
                 case "7":
                     return "Выход";
                 default:
