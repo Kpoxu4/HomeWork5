@@ -1,15 +1,6 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Data;
-using System.Formats.Tar;
-using System.Globalization;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Security;
+﻿using System.Data;
 using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 
 namespace HomeWork5
 {
@@ -23,30 +14,32 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string FindSentencesWithoutCommas( this string text)
+        public static string FindSentencesWithoutCommas(this string text)
         {
             text = text.Trim().TrimEnd();
             PunctuationMarks punctuationMark = new PunctuationMarks();
             var punctuation = punctuationMark.arrayFinishPunctuationMarks;
             List<string> sentences = new List<string>();
             StringBuilder sb = new StringBuilder();
-            
-            for (int i = 0; i < text.Length; i++)
+
+            for (int i = 0; text.IndexOfAny(punctuation) != text.Length - 1; i++)
             {
-                if (text.IndexOfAny(punctuation) != text.Length - 1)
+                if (text[i] != text.Length - 1)
                 {
-                  sentences.Add(text.Substring(0, text.IndexOfAny(punctuation) + 1) + "\n");
-                  text = text.Remove(0, text.IndexOfAny(punctuation) + 1).Trim();
+                    if ((text[i] == '.' || text[i] == '!' || text[i] == '?') && text[i + 1] == ' ')
+                    {
+                        sentences.Add(text.Substring(0, i + 1));
+                        text = text.Remove(0, i + 1).Trim();
+                        i = 0;
+                    }
                 }
-                else
-                    break;
             }
             sentences.Add(text);
 
             foreach (var str in sentences)
             {
-                if(!str.Contains(","))
-                    sb.Append(str.Trim() + "\n"); 
+                if (!str.Contains(","))
+                    sb.Append(str.Trim() + "\n");
             }
 
             return sb.ToString();
@@ -74,12 +67,12 @@ namespace HomeWork5
             int count = 0;
             foreach (char item in text)
             {
-                if (char.IsDigit(item)) 
+                if (char.IsDigit(item))
                 {
                     count++;
                     text = text.Replace(item.ToString(), ReplacingNumberWithWord(item));
                 }
-                   
+
             }
             return $"Всего произведено замен {count}\n{text}";
         }
@@ -96,9 +89,9 @@ namespace HomeWork5
             StringBuilder sb = new StringBuilder();
             foreach (string word in strings)
             {
-                foreach(char item in word)
+                foreach (char item in word)
                 {
-                    if(char.IsDigit(item))
+                    if (char.IsDigit(item))
                     {
                         helpCount++;
                     }
@@ -128,7 +121,7 @@ namespace HomeWork5
         {
             StringBuilder sb = new StringBuilder();
             var arrayString = ArrayString(text);
-            foreach ( var item in arrayString )
+            foreach (var item in arrayString)
             {
                 if (item[0].ToString().ToLower() == item[item.Length - 1].ToString().ToLower() && !Char.IsDigit(item[0]) && item.Length > 1)
                     sb.Append(item + "\n");
@@ -152,7 +145,7 @@ namespace HomeWork5
         /// </summary>
         /// <param name="text"></param>
         /// <returns></returns>
-        private  static string FindTheLongsWord(string text) 
+        private static string FindTheLongsWord(string text)
         {
             string longWord = "";
             int max = 0;
@@ -163,7 +156,7 @@ namespace HomeWork5
                 {
                     max = word.Length;
                     longWord = word;
-                } 
+                }
             }
             return longWord;
         }
@@ -188,7 +181,7 @@ namespace HomeWork5
         {
             string result = "";
             var arrayString = ArrayString(text);
-            foreach(var word in arrayString)
+            foreach (var word in arrayString)
             {
                 for (int i = 0; i < word.Length; i++)
                 {
@@ -208,7 +201,7 @@ namespace HomeWork5
         /// <returns></returns>
         private static string ReplacingNumberWithWord(char item)
         {
-            switch (item) 
+            switch (item)
             {
                 case '0':
                     return "ноль ";
@@ -232,7 +225,7 @@ namespace HomeWork5
                     return "девять ";
                 default:
                     return "";
-            }   
+            }
         }
         /// <summary>
         /// Поиск регулярных выражений

@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HomeWork5
+﻿namespace HomeWork5
 {
     /// <summary>
     /// Класс перебора меню.
@@ -18,7 +11,7 @@ namespace HomeWork5
         /// <param name="item"></param>
         /// <param name="text"></param>
         /// <returns></returns>
-        public static string SelectingMenuItem(string item ,string text) 
+        public static string SelectingMenuItem(string item, string text)
         {
             switch (item)
             {
@@ -63,7 +56,7 @@ namespace HomeWork5
                     return true;
                 case "7":
                     return true;
-                default: 
+                default:
                     return false;
             }
         }

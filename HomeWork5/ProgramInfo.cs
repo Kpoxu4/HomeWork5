@@ -1,12 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace HomeWork5 
-{ 
+﻿namespace HomeWork5
+{
     /// <summary>
     /// Класс информации для программы.
     /// </summary>
@@ -24,11 +17,11 @@ namespace HomeWork5
                 5. - Вывести на экран только предложения, не содержащие запятых.
                 6. - Найти слова, начинающиеся и заканчивающиеся на одну и ту же букву.
                 7. - Выход.
-                """);   
+                """);
         }
         public static void MiniMenuInfo(string menuInfo = "Для продолжения нажмите любую кнопку.\nВыход нажмите ESC")
         {
-              Console.WriteLine(menuInfo);
+            Console.WriteLine(menuInfo);
         }
     }
 }

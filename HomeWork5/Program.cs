@@ -1,5 +1,4 @@
 ﻿using HomeWork5;
-using System.Runtime;
 using System.Text;
 
 Console.OutputEncoding = System.Text.Encoding.UTF8;
@@ -27,19 +26,19 @@ while (true)
     {
         Console.WriteLine("Выберите пункт меню");
         Console.ReadKey();
-    }  
+    }
 }
 // Меню набора текста
-if (itemStartMenu == "1") 
+if (itemStartMenu == "1")
 {
     while (true)
     {
-        Console.Clear() ;
+        Console.Clear();
         Console.WriteLine("Ведите любой текст");
         var str = Console.ReadLine();
         if (String.IsNullOrWhiteSpace(str))
             continue;
-        else 
+        else
         {
             text.Append(str);
             break;
@@ -48,14 +47,14 @@ if (itemStartMenu == "1")
 }
 // Меню набора пути к файлу
 if (itemStartMenu == "2")
-{ 
-    while(true)
+{
+    while (true)
     {
         Console.Clear();
         Console.WriteLine("Введите путь к текстовому файлу");
         path = Console.ReadLine();
         try
-        { 
+        {
             StreamReader sr = new StreamReader(path);
             text.Append(sr.ReadToEnd());
             if (text.ToString() == "")
@@ -76,10 +75,10 @@ if (itemStartMenu == "2")
                 Environment.Exit(0);
         }
     }
-}    
+}
 
 // Меню действия над текстом
-while (true) 
+while (true)
 {
     Console.Clear();
     Console.WriteLine(text.ToString());
@@ -97,7 +96,7 @@ while (true)
         if (Console.ReadKey().Key == ConsoleKey.Escape)
             Environment.Exit(0);
     }
-    else 
+    else
     {
         Console.WriteLine("Неверный пункт меню");
     }
