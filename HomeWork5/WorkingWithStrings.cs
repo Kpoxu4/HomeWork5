@@ -28,6 +28,9 @@ namespace HomeWork5
                 {
                     if ((text[i] == '.' || text[i] == '!' || text[i] == '?') && text[i + 1] == ' ')
                     {
+                        if (text[i] == '.' && Char.IsUpper(text[i - 1]))
+                            continue;
+
                         sentences.Add(text.Substring(0, i + 1));
                         text = text.Remove(0, i + 1).Trim();
                         i = 0;
@@ -35,7 +38,6 @@ namespace HomeWork5
                 }
             }
             sentences.Add(text);
-
             foreach (var str in sentences)
             {
                 if (!str.Contains(","))
