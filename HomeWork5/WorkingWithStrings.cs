@@ -16,6 +16,16 @@ namespace HomeWork5
         /// <returns></returns>
         public static string FindSentencesWithoutCommas(this string text)
         {
+            //string[] arrayStrings = FindRegularExpressions(text, @"(?<=[\.!\?])\s+");
+            //StringBuilder sb = new StringBuilder();
+
+            //foreach (var arrayString in arrayStrings)
+            //{
+            //    if (!arrayString.Contains(","))
+            //        sb.Append(arrayString.Trim() + "\n");
+            //}
+            //return sb.ToString();
+
             text = text.Trim().TrimEnd();
             PunctuationMarks punctuationMark = new PunctuationMarks();
             var punctuation = punctuationMark.arrayFinishPunctuationMarks;
@@ -26,7 +36,7 @@ namespace HomeWork5
             {
                 if (text[i] != text.Length - 1)
                 {
-                    if ((text[i] == '.' || text[i] == '!' || text[i] == '?') && text[i + 1] == ' ')
+                    if ((text[i] == '.' || text[i] == '!' || text[i] == '?') && (text[i + 1] == ' ' || Char.IsUpper(text[i+1])))
                     {
                         if (text[i] == '.' && Char.IsUpper(text[i - 1]))
                             continue;
@@ -237,8 +247,7 @@ namespace HomeWork5
         /// <returns></returns>
         private static string[] FindRegularExpressions(string text, string regular)
         {
-            var matches = Regex.Matches(text, regular);
-            return matches.Cast<Match>().Select(m => m.Value).ToArray();
+            return Regex.Split(text, regular);
         }
     }
 }
