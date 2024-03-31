@@ -62,24 +62,26 @@ namespace HomeWork5
             string[] arrayStrings2 = matches2.Cast<Match>().Select(m => m.Value.Trim()).ToArray();
             int count = arrayStrings1.Length + arrayStrings2.Length;
 
-            return $"Количество предложений {count}:\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}";
+            return $"Количество вопросительных и восклицательных предложений {count}:\n{String.Join('\n', arrayStrings1)}\n{String.Join('\n', arrayStrings2)}";
         }
         /// <summary>
-    /// Замена всех цифр на слова.
-    /// </summary>
-    /// <param name="text"></param>
-    /// <returns></returns>
+        /// Замена всех цифр на слова.
+        /// </summary>
+        /// <param name="text"></param>
+        /// <returns></returns>
         public static string ReplacingNumberWithWord(this string text)
         {
+            int count = 0;
             foreach (char item in text)
             {
                 if (char.IsDigit(item)) 
                 {
+                    count++;
                     text = text.Replace(item.ToString(), ReplacingNumberWithWord(item));
                 }
                    
             }
-            return text;
+            return $"Всего произведено замен {count}\n{text}";
         }
         /// <summary>
         /// Ищет слова, содержащие максимальное количество цифр.
@@ -115,7 +117,7 @@ namespace HomeWork5
                 }
                 helpCount = 0;
             }
-            return $"Слова содержащие максимальное количество цифр:\n{sb.ToString()}";
+            return sb.Length != 0 ? $"Слова содержащие максимальное количество цифр:\n{sb.ToString()}" : "Слов с цифрами нет";
         }
         /// <summary>
         /// Ищет слово, начинающиеся и заканчивающиеся на одну и ту же букву.
@@ -128,10 +130,10 @@ namespace HomeWork5
             var arrayString = ArrayString(text);
             foreach ( var item in arrayString )
             {
-                if (item[0].ToString().ToLower() == item[item.Length - 1].ToString().ToLower() && !Char.IsDigit(item[0]))
+                if (item[0].ToString().ToLower() == item[item.Length - 1].ToString().ToLower() && !Char.IsDigit(item[0]) && item.Length > 1)
                     sb.Append(item + "\n");
             }
-            return $"Слова которые начинаются и заканчиваются одинаковой буквой:\n{sb.ToString()}";
+            return $"Слова которые начинаются и заканчиваются одинаковой буквой:\n{sb.ToString().Trim()}";
         }
         /// <summary>
         /// Ищет количество повторений длинного слова.

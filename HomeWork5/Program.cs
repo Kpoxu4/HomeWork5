@@ -46,7 +46,7 @@ if (itemStartMenu == "1")
         }
     }
 }
-// Меню набора пути к фалу
+// Меню набора пути к файлу
 if (itemStartMenu == "2")
 { 
     while(true)
@@ -90,7 +90,9 @@ while (true)
         var result = MenuItem.SelectingMenuItem(itemMenu, text.ToString());
         if (result == "Выход")
             Environment.Exit(0);
+        Console.WriteLine();
         Console.WriteLine(result);
+        Console.WriteLine();
         ProgramInfo.MiniMenuInfo();
         if (Console.ReadKey().Key == ConsoleKey.Escape)
             Environment.Exit(0);
